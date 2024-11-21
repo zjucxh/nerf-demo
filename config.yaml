@@ -1,0 +1,47 @@
+# Nerf configuration file
+device: !!str 'cuda'
+scene : !!str bulldozer 
+
+# Startified sampling
+n_samples: !!int 4 # number of stratified sampling for each ray
+perturb: !!bool true
+inverse_depth: !!bool true
+
+# Encoders
+d_input: !!int 3      # dimension of input for positional encoder
+n_pos_freqs: !!int 10 # number of positional encoding frequences for position
+n_dir_freqs: !!int 4  # number of positional encoding frequences for direction
+log_space: !!bool true
+chunk_size: !!int 32768 #2**15
+
+# Dataset
+dataset:
+  dataset_dir: !!str /home/cxh/mnt/nas/Documents/dataset/NeRF
+  bulldozer: 
+    data: !!str tiny_nerf_data.npz
+    near: !!float 2.0
+    far: !!float 6.0
+  torus: 
+    data: !!str torus_nerf_data.npz 
+    near: !!float 5.0
+    far: !!float 20.0
+
+# NeRF model
+d_nerf_input: !!int 3   # dimension of points
+n_layers: !!int 8        # number of layer
+d_filters: !!int 256     # dimension of linear filter
+skip: [4]               # Index of layer for residual layer
+d_viewdirs: !!int 3     # dimension of view direction
+# Optimizer
+lr: !!float 0.0005     # learning rate
+
+# Hierarchical sampling
+n_hierarchical_sampling: !!int 8 # Number of samples per ray
+perturb_hierarchical: !!bool false
+
+# Training
+n_iters: !!int 10000
+batch_size: !!int 16384
+one_image_per_step: !!bool true
+use_fine_model: !!bool true
+
